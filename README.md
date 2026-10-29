@@ -1,14 +1,16 @@
 # Marci Metzger Real Estate Homepage
 
-A responsive, single-page real estate homepage built with HTML, CSS, and vanilla JavaScript.
+A responsive, single-page real estate homepage built with React, Vite, and the existing CSS styles.
 
 ## Preview locally
 
-Open `index.html` in a browser, or serve this folder with any static web server.
+Run `npm install`, then `npm run dev` to start the Vite development server.
+Run `npm run build` to create a production build in `dist/`.
 
 ## Project files
 
-- `index.html` - page structure and content
-- `styles.css` - responsive layout and visual styles
-- `script.js` - navigation, listing search, gallery, and contact form interactions
-- `assets/images/` - page imagery and logos
+- `index.html` - Vite entry document
+- `src/App.jsx` - React page and section components
+- `src/homepage.js` - scroll effects, listing search, and gallery behavior
+- `styles.css` - the homepage's existing responsive visual styles
+- `public/assets/images/` - page imagery and logos

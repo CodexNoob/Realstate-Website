@@ -1,40 +1,6 @@
+export function initializeHomepage() {
 document.documentElement.classList.add('js');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// Navigation: mobile menu toggle
-const toggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.primary-nav');
-toggle.addEventListener('click', () => {
-  const open = toggle.getAttribute('aria-expanded') === 'true';
-  toggle.setAttribute('aria-expanded', String(!open));
-  toggle.setAttribute('aria-label', open ? 'Open navigation' : 'Close navigation');
-  nav.classList.toggle('open', !open);
-});
-nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-  nav.classList.remove('open');
-  toggle.setAttribute('aria-expanded', 'false');
-  toggle.setAttribute('aria-label', 'Open navigation');
-}));
-
-// Highlight the nav link for the section currently in the middle of the viewport
-const navLinks = [...nav.querySelectorAll('a[href^="#"]')];
-if ('IntersectionObserver' in window) {
-  const sectionObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      navLinks.forEach(link => {
-        const current = link.getAttribute('href') === `#${entry.target.id}`;
-        link.classList.toggle('is-current', current);
-        if (current) link.setAttribute('aria-current', 'location');
-        else link.removeAttribute('aria-current');
-      });
-    });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  navLinks.forEach(link => {
-    const section = document.querySelector(link.getAttribute('href'));
-    if (section) sectionObserver.observe(section);
-  });
-}
 
 // Fade content in as it scrolls into view
 const revealItems = document.querySelectorAll('.service-card, .bento-tile, .reveal');
@@ -189,16 +155,5 @@ searchForm.addEventListener('submit', event => {
 });
 
 // Contact form: open the visitor's email app with the message filled in
-document.querySelector('#contact-form').addEventListener('submit', event => {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const subject = encodeURIComponent(`Website inquiry from ${data.get('name')}`);
-  const body = encodeURIComponent(`Name: ${data.get('name')}
-Email: ${data.get('email')}
-
-${data.get('message') || ''}`);
-  document.querySelector('#contact-message').textContent = 'Your email app is opening with your message ready to send.';
-  window.location.href = `mailto:info@marcimetzger.com?subject=${subject}&body=${body}`;
-});
-
 document.querySelector('#year').textContent = new Date().getFullYear();
+}
